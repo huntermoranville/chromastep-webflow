@@ -1,3 +1,7 @@
+window.alert("TESTING");
+
+
+/*
 document.addEventListener("DOMContentLoaded", () => {
   const colorInput = document.getElementById("colorInput");
   const colorNameInput = document.getElementById("colorName");
@@ -203,3 +207,4 @@ document.addEventListener("DOMContentLoaded", () => {
     URL.revokeObjectURL(url);
   });
 });
+*/
