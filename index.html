@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chromastep</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <img
+        src="/images/chromastep-nav-logo-min.png"
+        alt="The color scale logo."
+      />
+      <h1>Generate color scales instantly</h1>
+      <div id="info-box">
+        <div class="input-group">
+          <label for="colorInput">Hex Color:</label>
+          <input
+            type="text"
+            id="colorInput"
+            placeholder="Enter HEX color value"
+          />
+        </div>
+        <div class="input-group">
+          <label for="colorName">Color Name:</label>
+          <input type="text" id="colorName" placeholder="Enter color name" />
+        </div>
+        <div class="button-group">
+          <button id="incrementBy5" class="increment-button">
+            Increment by 5%
+          </button>
+          <button id="incrementBy10" class="increment-button">
+            Increment by 10%
+          </button>
+        </div>
+        <div class="toggle-container">
+          <span id="toggleLabel">Lighten</span>
+          <label class="switch">
+            <input id="toggleButton" type="checkbox" />
+            <span class="slider round"></span>
+          </label>
+          <span id="toggleLabel">Darken</span>
+        </div>
+      </div>
+      <div id="resultsContainer" class="results-container"></div>
+      <button id="exportButton" class="export-button">Export Colors</button>
+      <p>Colors export as .txt file</p>
+      <a
+        href="https://www.keepgoingdesigns.com/resources/colorscale"
+        target="_blank"
+        >Leave Feedback</a
+      >
+    </div>
+    <script src="app.js" defer></script>
+  </body>
+</html>
