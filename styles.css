@@ -1,0 +1,236 @@
+body {
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: auto;
+  width: auto;
+  margin: 0;
+  background-color: #f0f0f0;
+}
+
+h1 {
+  font-size: medium;
+  font-family: sans-serif;
+}
+
+.container {
+  text-align: center;
+  background: white;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#info-box {
+  padding: 10px;
+  background-color: #f2f2f2;
+  border: 1px, #ff9d66;
+  border-radius: 8px;
+}
+
+.button-group {
+  margin-bottom: 20px;
+  display: flex;
+}
+
+.increment-button {
+  margin: 5px;
+  padding: 10px 20px;
+  font-size: 12px;
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+  /* background-color: #007bff; */
+  background-color: #4c4c4c;
+  color: white;
+  transition: background-color 0.3s;
+}
+
+.increment-button:hover {
+  /* background-color: #0056b3; */
+  background-color: #191919;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  width: 100%;
+}
+
+label {
+  margin: none;
+  text-align: left;
+  font-weight: 600;
+}
+
+input {
+  /* width: 100%; */
+  padding: 10px;
+  margin: 10px 0 20px 0;
+  font-size: 16px;
+}
+
+.results-container {
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  margin-top: 10px;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.result {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  /* padding: 10px; */
+  height: 40px;
+  cursor: pointer;
+  /* border: 1px solid #ccc; */
+  /* border-radius: 5px; */
+  /* margin-top: 6px; */
+  text-align: center;
+  background-clip: content-box;
+  position: relative;
+}
+
+.name-container {
+  margin: 24px;
+}
+
+.hex-container {
+  margin-right: 24px;
+  flex-grow: 1;
+  display: flex;
+  justify-content: right;
+  align-items: center;
+  height: 100%;
+}
+
+.result span {
+  /* background: rgba(255, 255, 255, 0.993); */
+  padding: 2px 5px;
+  border-radius: 3px;
+  position: relative;
+  z-index: 1;
+}
+
+.export-button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: white;
+  transition: background-color 0.3s;
+}
+
+.export-button:hover {
+  background-color: #0056b3;
+}
+
+/* New styles for copy indicator */
+.copy-indicator {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 100%;
+  border-left: 1px, white;
+  background-color: #4caf50;
+  background-image: url("images/check-circle.png");
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  opacity: 0;
+  transition: opacity 0.3s;
+  z-index: 1;
+}
+
+.hover-indicator {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 100%;
+  border-left: 1px, white;
+  background-color: #4caf50;
+  opacity: 0;
+  transition: opacity 0.3s;
+  z-index: 0;
+}
+
+.result:hover .hover-indicator {
+  opacity: 0.5;
+}
+
+/* Styles for the toggle slider button */
+
+.toggle-container {
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: 0.4s;
+  border-radius: 34px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  transition: 0.4s;
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background-color: #1c1c1c;
+}
+
+input:checked + .slider:before {
+  transform: translateX(26px);
+}
+
+.slider.round {
+  border-radius: 34px;
+}
+
+/* Additional styles for toggle label */
+#toggleLabel {
+  /* margin-left: 10px; */
+  font-size: 16px;
+}
