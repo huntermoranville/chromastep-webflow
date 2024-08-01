@@ -1,0 +1,37 @@
+/*css for the results div hover and copy interaction */
+
+.copy-indicator {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 100%;
+  border-left: 1px, white;
+  background-color: #4caf50;
+  background-image: url("images/check-circle.png");
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  opacity: 0;
+  transition: opacity 0.3s;
+  z-index: 1;
+}
+
+.hover-indicator {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 100%;
+  border-left: 1px, white;
+  background-color: #4caf50;
+  opacity: 0;
+  transition: opacity 0.3s;
+  z-index: 0;
+}
+
+.result:hover .hover-indicator {
+  opacity: 0.5;
+}
