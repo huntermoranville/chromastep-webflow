@@ -5,7 +5,7 @@
        // color picker options
        // Option guide: https://iro.js.org/guide.html#color-picker-options
        width: 180,
-       color: "rgb(255, 0, 0)",
+       color: "#FF7C33",
        borderWidth: 5,
        borderColor: "#f5f5f5",
    });    
