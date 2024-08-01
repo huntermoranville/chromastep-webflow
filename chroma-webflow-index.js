@@ -1,5 +1,3 @@
-<script src="https://cdn.jsdelivr.net/npm/@jaames/iro/dist/iro.min.js"></script>
-<script>
 //<!--🟢 COLOR PICKER CODE 🟢-->
    // Create a new color picker instance
    // https://iro.js.org/guide.html#getting-started
@@ -242,4 +240,3 @@
     URL.revokeObjectURL(url);
   });
 });
-</script>
