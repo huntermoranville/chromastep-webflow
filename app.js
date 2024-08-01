@@ -1,5 +1,7 @@
-<!--🟢 COLOR PICKER CODE 🟢-->
-<script src="https://cdn.jsdelivr.net/npm/@jaames/iro/dist/iro.min.js"></script>
+var jQueryScript = document.createElement('script');  
+jQueryScript.setAttribute('src','https://cdn.jsdelivr.net/npm/@jaames/iro/dist/iro.min.js');
+document.head.appendChild(jQueryScript);
+
    // Create a new color picker instance
    // https://iro.js.org/guide.html#getting-started
    var colorPicker = new iro.ColorPicker(".ms-colorpicker", {
