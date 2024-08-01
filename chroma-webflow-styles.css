@@ -9,7 +9,7 @@
   height: 100%;
   border-left: 1px, white;
   background-color: #4caf50;
-  background-image: url("images/check-circle.png");
+/*   background-image: url("images/check-circle.png"); */
   background-position: center;
   background-size: contain;
   background-repeat: no-repeat;
