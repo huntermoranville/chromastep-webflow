@@ -38,6 +38,7 @@
   const incrementBy5Button = document.getElementById("incrementBy5");//
   const incrementBy10Button = document.getElementById("incrementBy10");//
   const toggleButton = document.getElementById("toggleButton");//
+  const exportIMG = document.getElementById("exportIMG");//
 
   let colorRange = [];
   let increment = 10; // Default increment
@@ -192,14 +193,18 @@
   }
 //***********ADDED IN**************//
 // Save div as image
- $( "#exportPNG" ).on( "click", function() {
-	 console.log('export button clicked');
+exportIMG.addEventListener("click", () => {
+    console.log('export button clicked');
+  });
+	   
+ // $( "#exportPNG" ).on( "click", function() {
+	 
       // html2canvas(document.querySelector("#resultsContainer")).then(canvas => {
         // canvas.toBlob(function(blob) {
         //   window.saveAs(blob, 'chromastep-colors.jpg');
         // });
         // });
-    });
+    // });
 	   
 // html2canvas([document.getElementById('resultsContainer')], {
 //     onrendered: function(canvas) {
