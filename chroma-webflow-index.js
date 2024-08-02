@@ -244,8 +244,9 @@
 	   
 	  //***********ADDED IN**************//
 // Save div as image
-exportIMG.addEventListener("click", () => {
-    console.log("export button clicked");
+  exportIMG.addEventListener("click", () => {
+     const message = "export button clicked";
+     console.log(message);
   });
 	   
  // $( "#exportPNG" ).on( "click", function() {
