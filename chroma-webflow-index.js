@@ -190,7 +190,24 @@
       });
     }
   }
-
+//***********ADDED IN**************//
+// Save div as image
+ $( "#exportPNG" ).on( "click", function() {
+      html2canvas(document.querySelector("#resultsContainer")).then(canvas => {
+        canvas.toBlob(function(blob) {
+          window.saveAs(blob, 'chromastep-colors.jpg');
+        });
+        });
+    });
+	   
+// html2canvas([document.getElementById('resultsContainer')], {
+//     onrendered: function(canvas) {
+//        document.body.appendChild(canvas);
+//        var data = canvas.toDataURL('image/png');
+//        // AJAX call to send `data` to a PHP file that creates an image from the dataURI string and saves it to a directory on the server
+//     }
+// });
+	   
   function showCopyIndicator(container) {
     const indicator = container.nextElementSibling; // Assuming copy indicator is next sibling
     indicator.style.opacity = 1;
