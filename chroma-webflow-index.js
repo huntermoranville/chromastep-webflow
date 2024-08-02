@@ -235,7 +235,7 @@ exportIMG.addEventListener("click", () => {
 
   incrementBy5Button.addEventListener("click", () => {
     increment = 5;
-	  console.log("increment 5 button clicked");
+    console.log("increment 5 button clicked");
     updateColorRange();
   });
 
