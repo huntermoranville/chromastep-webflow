@@ -38,7 +38,7 @@
   const incrementBy5Button = document.getElementById("incrementBy5");//
   const incrementBy10Button = document.getElementById("incrementBy10");//
   const toggleButton = document.getElementById("toggleButton");//
-  const exportIMG = document.getElementById("exportIMG");//
+  const exportIMG = document.getElementById("exportImage");//
 
   let colorRange = [];
   let increment = 10; // Default increment
@@ -239,6 +239,7 @@
     a.download = "color-range.txt";
     a.click();
     URL.revokeObjectURL(url);
+    console.log("exported text");
   });
 
 	   
