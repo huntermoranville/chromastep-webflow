@@ -194,7 +194,7 @@
 //***********ADDED IN**************//
 // Save div as image
 exportIMG.addEventListener("click", () => {
-    console.log('export button clicked');
+    console.log("export button clicked");
   });
 	   
  // $( "#exportPNG" ).on( "click", function() {
@@ -235,6 +235,7 @@ exportIMG.addEventListener("click", () => {
 
   incrementBy5Button.addEventListener("click", () => {
     increment = 5;
+	  console.log("increment 5 button clicked");
     updateColorRange();
   });
 
