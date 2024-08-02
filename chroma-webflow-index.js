@@ -193,11 +193,12 @@
 //***********ADDED IN**************//
 // Save div as image
  $( "#exportPNG" ).on( "click", function() {
-      html2canvas(document.querySelector("#resultsContainer")).then(canvas => {
-        canvas.toBlob(function(blob) {
-          window.saveAs(blob, 'chromastep-colors.jpg');
-        });
-        });
+	 console.log('export button clicked');
+      // html2canvas(document.querySelector("#resultsContainer")).then(canvas => {
+        // canvas.toBlob(function(blob) {
+        //   window.saveAs(blob, 'chromastep-colors.jpg');
+        // });
+        // });
     });
 	   
 // html2canvas([document.getElementById('resultsContainer')], {
