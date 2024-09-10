@@ -185,6 +185,8 @@
         resultsContainer.appendChild(resultDiv);
         
         const csaBackground = document.getElementById("csaBackground");
+	const colorBGAsInput = document.querySelectorAll('.colorInput'); // Target all classes with .colorInput and place in a variable
+	colorBGAsInput.style.backgroundcolor = hexInput.value;
         csaBackground.style.backgroundcolor = hexInput.value;
         exportButton.style.backgroundColor = hexInput.value;
         setTextColorBasedOnBackground(hexInput.value, exportButton);
