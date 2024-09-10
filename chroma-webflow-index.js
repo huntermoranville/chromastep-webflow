@@ -39,6 +39,8 @@
   const incrementBy10Button = document.getElementById("incrementBy10");//
   const toggleButton = document.getElementById("toggleButton");//
   const exportIMG = document.getElementById("exportImage");//
+  const csaBackground = document.getElementById("csaBackground");
+  const colorBGAsInput = document.querySelectorAll('.colorInput'); // Target all classes with .colorInput and place in a variable
 
   let colorRange = [];
   let increment = 10; // Default increment
@@ -184,9 +186,8 @@
 
         resultsContainer.appendChild(resultDiv);
         
-        const csaBackground = document.getElementById("csaBackground");
-	const colorBGAsInput = document.querySelectorAll('.colorInput'); // Target all classes with .colorInput and place in a variable
-	colorBGAsInput.style.backgroundcolor = hexInput.value;
+        
+	colorBGAsInput.style.backgroundcolor = hexInput.value; // call colorBGAsInput to change all element's bcakground color with this class to the hex input's color
         csaBackground.style.backgroundcolor = hexInput.value;
         exportButton.style.backgroundColor = hexInput.value;
         setTextColorBasedOnBackground(hexInput.value, exportButton);
