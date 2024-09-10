@@ -187,10 +187,10 @@
         resultsContainer.appendChild(resultDiv);
         
         
-	colorBGAsInput.style.backgroundcolor = hexInput.value; // call colorBGAsInput to change all element's bcakground color with this class to the hex input's color
-        csaBackground.style.backgroundcolor = hexInput.value;
-        exportButton.style.backgroundColor = hexInput.value;
-        setTextColorBasedOnBackground(hexInput.value, exportButton);
+	colorBGAsInput.style.backgroundColor = hexInput.value; // call colorBGAsInput to change all element's bcakground color with this class to the hex input's color
+        //csaBackground.style.backgroundColor = hexInput.value;
+        //exportButton.style.backgroundColor = hexInput.value;
+        setTextColorBasedOnBackground(hexInput.value, colorBGAsInput);
       });
     }
   }
