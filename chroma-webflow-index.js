@@ -40,7 +40,7 @@
   const toggleButton = document.getElementById("toggleButton");//
   const exportIMG = document.getElementById("exportImage");//
   const csaBackground = document.getElementById("csaBackground");
-  const colorBGAsInput = document.querySelectorAll('.colorInput'); // Target all classes with .colorInput and place in a variable
+  let colorBGAsInput = document.querySelectorAll('.colorInput'); // Target all classes with .colorInput and place in a variable
 
   let colorRange = [];
   let increment = 10; // Default increment
@@ -186,7 +186,9 @@
 
         resultsContainer.appendChild(resultDiv);
         
-        
+        colorBGAsInput.forEach(function(element) {
+ 	  element.style.backgroundColor = hexInput.value;
+	});
 	colorBGAsInput.style.backgroundColor = hexInput.value; // call colorBGAsInput to change all element's bcakground color with this class to the hex input's color
         //csaBackground.style.backgroundColor = hexInput.value;
         //exportButton.style.backgroundColor = hexInput.value;
