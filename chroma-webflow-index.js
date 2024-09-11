@@ -143,6 +143,7 @@
         resultDiv.className = "result";
         resultDiv.style.backgroundColor = color;
 
+	// Set color name in swatch div
         const nameContainer = document.createElement("div");
         nameContainer.className = "name-container";
         nameContainer.textContent = name;
@@ -154,10 +155,9 @@
           setTimeout(() => {
             nameContainer.textContent = name;
           }, 1000);
-
-          //   setTimeout(() => hideCopyIndicator(nameContainer), 1000);
         });
 
+	// Set hex value in swatch div
         const hexContainer = document.createElement("div");
         hexContainer.className = "hex-container";
         hexContainer.textContent = color;
@@ -168,9 +168,7 @@
           setTimeout(() => {
             hexContainer.textContent = color;
           }, 1000);
-
           showCopyIndicator(hexContainer);
-          //   setTimeout(() => hideCopyIndicator(hexContainer), 1000);
         });
 
         const hoverIndicator = document.createElement("div");
@@ -213,8 +211,8 @@
     updateColorRange();
   }
 
-  colorInput.addEventListener("input", updateColorRange);
-  colorNameInput.addEventListener("input", updateColorRange);
+  colorInput.addEventListener("input", updateColorRange());
+  colorNameInput.addEventListener("input", updateColorRange());
 
   incrementBy5Button.addEventListener("click", () => {
     increment = 5;
