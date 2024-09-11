@@ -188,7 +188,7 @@
  	  element.style.backgroundColor = hexInput.value;
 	});
 	colorBGAsInput.style.backgroundColor = hexInput.value; // call colorBGAsInput to change all element's bcakground color with this class to the hex input's color
-        //csaBackground.style.backgroundColor = hexInput.value;
+        csaBackground.style.backgroundColor = hexInput.value;
         //exportButton.style.backgroundColor = hexInput.value;
         setTextColorBasedOnBackground(hexInput.value, colorBGAsInput);
       });
