@@ -1,51 +1,38 @@
-//<!--🟢 COLOR PICKER CODE 🟢-->
-   // Create a new color picker instance
-   // https://iro.js.org/guide.html#getting-started
-   var colorPicker = new iro.ColorPicker(".ms-colorpicker", {
-       // color picker options
-       // Option guide: https://iro.js.org/guide.html#color-picker-options
-       width: 180,
-       color: "#FF7C33",
-       borderWidth: 5,
-       borderColor: "#f5f5f5",
-   });    
-   var values = document.getElementById("values");
-   var hexInput = document.getElementById("hexInput");
-   var swatch = document.getElementById("colorSwatch");    // https://iro.js.org/guide.html#color-picker-events
-   colorPicker.on(["color:init", "color:change"], function(color){
-       // Show the current color in different formats
-       // Using the selected color: https://iro.js.org/guide.html#selected-color-api
-       values.innerHTML = [
-           "hex: " + color.hexString,
-           "rgb: " + color.rgbString,
-           "hsl: " + color.hslString,
-       ].join("<br>");
-       
-       hexInput.value = color.hexString;
-       swatch.style.backgroundColor = color.hexString;
-   });    hexInput.addEventListener('change', function() {
-       colorPicker.color.hexString = this.value;
-       swatch.style.backgroundColor = this.value;
-   });
-   
-//<!--🟢 COLOR SHADER CODE 🟢-->  
-   document.addEventListener("DOMContentLoaded", () => {
-  const colorInput = hexInput;
-  ///////CHANGE^^^^^^^^^^^^^/////////
-  const colorNameInput = document.getElementById("colorName");//
-  const resultsContainer = document.getElementById("resultsContainer");//
-  const exportButton = document.getElementById("exportButton");//
-  const incrementBy5Button = document.getElementById("incrementBy5");//
-  const incrementBy10Button = document.getElementById("incrementBy10");//
-  const toggleButton = document.getElementById("toggleButton");//
-  const exportIMG = document.getElementById("exportImage");//
-  const csaBackground = document.getElementById("csaBackground");
-  let colorBGAsInput = document.querySelectorAll('.colorInput'); // Target all classes with .colorInput and place in a variable
+//<!--🟢 COLOR SHADER CODE 🟢-->
+document.addEventListener("DOMContentLoaded", () => {
+  // Color Input variables
+  const colorInput = document.getElementById("myColor");
+  var hexInput = document.getElementById("hexInput");
+  var colorNameInput = document.getElementById("colorName"); //
+  // Results variables
+  const resultsContainer = document.getElementById("resultsContainer"); //
+  const exportButton = document.getElementById("exportButton"); //
+  // Button variables
+  const incrementBy5Button = document.getElementById("incrementBy5"); //
+  const incrementBy10Button = document.getElementById("incrementBy10"); //
+  const toggleButton = document.getElementById("toggleButton"); //
 
   let colorRange = [];
   let increment = 10; // Default increment
   let isLightenMode = true; // Default to lightening colors
   let suffixLOrD = "";
+
+  updateColorRange();
+  hexInput.textContent = colorInput.value;
+  colorNameInput.addEventListener("input", updateColorRange());
+  console.log(colorInput.value);
+
+  // Listen to the color input and automatically update on input change
+  colorInput.addEventListener("input", () => {
+    hexInput.textContent = colorInput.value;
+    updateColorRange();
+    console.log(colorInput.value);
+  });
+
+  // Listen to the color name input and automatically update on input change
+  colorNameInput.addEventListener("input", () => {
+    updateColorRange();
+  });
 
   function hexToRgb(hex) {
     const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
@@ -127,7 +114,7 @@
       const suffix = suffixCheck + `${i}`;
       range.push({
         color: adjustColor(hex, i, lightenMode),
-        name: `${document.getElementById("colorName").value}-${suffix}`, 
+        name: `${document.getElementById("colorName").value}-${suffix}`,
       });
     }
     return range;
@@ -143,7 +130,7 @@
         resultDiv.className = "result";
         resultDiv.style.backgroundColor = color;
 
-	// Set color name in swatch div
+        // Set color name in swatch div
         const nameContainer = document.createElement("div");
         nameContainer.className = "name-container";
         nameContainer.textContent = name;
@@ -157,7 +144,7 @@
           }, 1000);
         });
 
-	// Set hex value in swatch div
+        // Set hex value in swatch div
         const hexContainer = document.createElement("div");
         hexContainer.className = "hex-container";
         hexContainer.textContent = color;
@@ -183,18 +170,10 @@
         resultDiv.appendChild(hoverIndicator);
 
         resultsContainer.appendChild(resultDiv);
-        
-        colorBGAsInput.forEach(function(element) {
- 	  element.style.backgroundColor = hexInput.value;
-	});
-	//colorBGAsInput.style.backgroundColor = hexInput.value; // call colorBGAsInput to change all element's bcakground color with this class to the hex input's color
-        //csaBackground.style.backgroundColor = hexInput.value;
-        //exportButton.style.backgroundColor = hexInput.value;
-        setTextColorBasedOnBackground(hexInput.value, colorBGAsInput);
       });
     }
   }
-	   
+
   function showCopyIndicator(container) {
     const indicator = container.nextElementSibling; // Assuming copy indicator is next sibling
     indicator.style.opacity = 1;
@@ -210,9 +189,6 @@
     toggleButton.textContent = isLightenMode ? "Lighten" : "Darken";
     updateColorRange();
   }
-
-  colorInput.addEventListener("input", updateColorRange());
-  colorNameInput.addEventListener("input", updateColorRange());
 
   incrementBy5Button.addEventListener("click", () => {
     increment = 5;
@@ -245,30 +221,4 @@
     URL.revokeObjectURL(url);
     console.log("exported text");
   });
-
-	   
-	  //***********ADDED IN**************//
-// Save div as image
-  exportIMG.addEventListener("click", () => {
-     const message = "export button clicked";
-     console.log(message);
-  });
-	   
- // $( "#exportPNG" ).on( "click", function() {
-	 
-      // html2canvas(document.querySelector("#resultsContainer")).then(canvas => {
-        // canvas.toBlob(function(blob) {
-        //   window.saveAs(blob, 'chromastep-colors.jpg');
-        // });
-        // });
-    // });
-	   
-// html2canvas([document.getElementById('resultsContainer')], {
-//     onrendered: function(canvas) {
-//        document.body.appendChild(canvas);
-//        var data = canvas.toDataURL('image/png');
-//        // AJAX call to send `data` to a PHP file that creates an image from the dataURI string and saves it to a directory on the server
-//     }
-// });
-	
 });
