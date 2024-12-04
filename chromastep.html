@@ -1,0 +1,294 @@
+<script src="https://cdn.jsdelivr.net/npm/@jaames/iro/dist/iro.min.js"></script>
+<!--<script src="https://cdn.jsdelivr.net/gh/huntermoranville/chromastep-webflow/chroma-webflow-index.js"></script> -->
+<script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+<!-- Set Export IMG button functionality -->
+<script>
+	const exportIMG = document.getElementById("exportImage");
+  const resultsContainer = document.getElementById("resultsContainer");
+	exportIMG.addEventListener("click", () => {
+    console.log("export button clicked");
+    html2canvas(resultsContainer).then(canvas => {
+      const a = document.createElement("a");
+      a.href = canvas.toDataURL("image/jpeg");
+      a.download = "chromastep-color-palette.jpeg";
+      a.click();
+    });
+  });
+  
+  
+  
+ 
+//<!--🟢 CHROMASTEP APP CODE 🟢-->
+document.addEventListener("DOMContentLoaded", () => {
+  // Color Input variables
+  const colorInput = document.getElementById("myColor");
+  var hexInput = document.getElementById("hexInput");
+  var hexInputValue = document.getElementById("hexInput").value;
+  var colorNameInput = document.getElementById("colorName"); //
+  // Results variables
+  const resultsContainer = document.getElementById("resultsContainer"); //
+  const exportButton = document.getElementById("exportButton"); //
+  // Button variables
+  const incrementBy5Button = document.getElementById("incrementBy5"); //
+  const incrementBy10Button = document.getElementById("incrementBy10"); //
+  const toggleButton = document.getElementById("toggleButton"); //
+
+  let colorRange = [];
+  let increment = 10; // Default increment
+  let isLightenMode = true; // Default to lightening colors
+  let suffixLOrD = "";
+
+  hexInputValue.addEventListener("input", () => {
+    console.log(hexInputValue);
+  });
+
+  updateColorRange();
+  hexInput.textContent = colorInput.value;
+  colorNameInput.addEventListener("input", updateColorRange());
+  console.log(colorInput.value);
+
+  // Listen to the color input and automatically update on input change
+  colorInput.addEventListener("input", () => {
+    hexInput.textContent = colorInput.value;
+    updateColorRange();
+    console.log(colorInput.value);
+  });
+
+  // Listen to the color name input and automatically update on input change
+  colorNameInput.addEventListener("input", () => {
+    updateColorRange();
+  });
+
+  function hexToRgb(hex) {
+    const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+    return result
+      ? {
+          r: parseInt(result[1], 16),
+          g: parseInt(result[2], 16),
+          b: parseInt(result[3], 16),
+        }
+      : null;
+  }
+
+  function rgbToHex(r, g, b) {
+    return `#${((1 << 24) + (r << 16) + (g << 8) + b)
+      .toString(16)
+      .slice(1)
+      .toUpperCase()}`;
+  }
+
+  function adjustColor(hex, percent, lightenMode) {
+    const rgb = hexToRgb(hex);
+    if (!rgb) return "";
+
+    const adjust = (color) => {
+      const newValue = lightenMode
+        ? color + (255 - color) * (percent / 100)
+        : color * (1 - percent / 100);
+      return lightenMode
+        ? Math.min(255, Math.floor(newValue))
+        : Math.max(0, Math.ceil(newValue));
+    };
+
+    const adjusted = {
+      r: adjust(rgb.r),
+      g: adjust(rgb.g),
+      b: adjust(rgb.b),
+    };
+
+    return rgbToHex(adjusted.r, adjusted.g, adjusted.b);
+  }
+
+  function calculateBrightness(hex) {
+    const rgb = hexToRgb(hex);
+    if (!rgb) return 0;
+
+    // Standard formula to calculate brightness
+    return (rgb.r * 299 + rgb.g * 587 + rgb.b * 114) / 1000;
+  }
+
+  function setTextColorBasedOnBackground(hex, element) {
+    const brightness = calculateBrightness(hex);
+    if (brightness > 186) {
+      // Light background
+      element.style.color = "black";
+    } else {
+      // Dark background
+      element.style.color = "white";
+    }
+  }
+
+  // Toggle the suffix from -L to -D depending on toggle switch state
+  function toggleSuffix() {
+    suffixLOrD = "";
+    if (isLightenMode == true) {
+      suffixLOrD = "L";
+      console.log(suffixLOrD);
+      return suffixLOrD;
+    } else {
+      suffixLOrD = "D";
+      console.log(suffixLOrD);
+      return suffixLOrD;
+    }
+  }
+
+  function generateColorRange(hex, increment, lightenMode) {
+    const range = [];
+    const suffixCheck = toggleSuffix();
+    for (let i = increment; i <= 100; i += increment) {
+      const suffix = suffixCheck + `${i}`;
+      range.push({
+        color: adjustColor(hex, i, lightenMode),
+        name: `${document.getElementById("colorName").value}-${suffix}`,
+      });
+    }
+    return range;
+  }
+
+  function updateColorRange() {
+    const color = colorInput.value;
+    if (color) {
+      colorRange = generateColorRange(color, increment, isLightenMode);
+      resultsContainer.innerHTML = "";
+      colorRange.forEach(({ color, name }) => {
+        const resultDiv = document.createElement("div");
+        resultDiv.className = "result";
+        resultDiv.style.backgroundColor = color;
+
+        // Set color name in swatch div
+        const nameContainer = document.createElement("div");
+        nameContainer.className = "name-container";
+        nameContainer.textContent = name;
+        setTextColorBasedOnBackground(color, nameContainer);
+        nameContainer.addEventListener("click", () => {
+          navigator.clipboard.writeText(name);
+          showCopyIndicator(nameContainer);
+          nameContainer.textContent = "Copied!";
+          setTimeout(() => {
+            nameContainer.textContent = name;
+          }, 1000);
+        });
+
+        // Set hex value in swatch div
+        const hexContainer = document.createElement("div");
+        hexContainer.className = "hex-container";
+        hexContainer.textContent = color;
+        setTextColorBasedOnBackground(color, hexContainer);
+        hexContainer.addEventListener("click", () => {
+          navigator.clipboard.writeText(color);
+          hexContainer.textContent = "Copied!";
+          setTimeout(() => {
+            hexContainer.textContent = color;
+          }, 1000);
+          showCopyIndicator(hexContainer);
+        });
+
+        const hoverIndicator = document.createElement("div");
+        hoverIndicator.className = "hover-indicator";
+
+        const copyIndicator = document.createElement("div");
+        copyIndicator.className = "copy-indicator";
+
+        resultDiv.appendChild(nameContainer);
+        resultDiv.appendChild(hexContainer);
+        resultDiv.appendChild(copyIndicator);
+        resultDiv.appendChild(hoverIndicator);
+
+        resultsContainer.appendChild(resultDiv);
+      });
+    }
+  }
+
+  function showCopyIndicator(container) {
+    const indicator = container.nextElementSibling; // Assuming copy indicator is next sibling
+    indicator.style.opacity = 1;
+  }
+
+  function hideCopyIndicator(container) {
+    const indicator = container.nextElementSibling; // Assuming copy indicator is next sibling
+    indicator.style.opacity = 0;
+  }
+
+  function toggleMode() {
+    isLightenMode = !isLightenMode;
+    toggleButton.textContent = isLightenMode ? "Lighten" : "Darken";
+    updateColorRange();
+  }
+
+  incrementBy5Button.addEventListener("click", () => {
+    increment = 5;
+    console.log("increment 5 button clicked");
+    updateColorRange();
+  });
+
+  incrementBy10Button.addEventListener("click", () => {
+    increment = 10;
+    console.log("increment 10 button clicked");
+    updateColorRange();
+  });
+
+  toggleButton.addEventListener("click", toggleMode);
+
+  exportButton.addEventListener("click", () => {
+    if (colorRange.length === 0) {
+      alert("Please enter a color to generate the range first.");
+      return;
+    }
+    const textData = colorRange
+      .map(({ color, name }) => `${name}: ${color}`)
+      .join("\n");
+    const blob = new Blob([textData], { type: "text/plain" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "color-range.txt";
+    a.click();
+    URL.revokeObjectURL(url);
+    console.log("exported text");
+  });
+});
+
+</script>
+
+
+
+
+<!-- CSS for the hover interactions -->
+<style>
+.copy-indicator {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 100%;
+  border-left: 1px, white;
+  background-color: rgba(0, 0, 0, 0.5);
+	background-image: url("data:image/svg+xml,%3Csvg%20width%3D%2220%22%20height%3D%2220%22%20viewBox%3D%220%200%2020%2020%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M10%200C4.48%200%200%204.48%200%2010C0%2015.52%204.48%2020%2010%2020C15.52%2020%2020%2015.52%2020%2010C20%204.48%2015.52%200%2010%200ZM8%2015L3%2010L4.41%208.59L8%2012.17L15.59%204.58L17%206L8%2015Z%22%20fill%3D%22white%22%2F%3E%3C%2Fsvg%3E");
+
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  opacity: 0;
+  transition: opacity 0.3s;
+  z-index: 1;
+}
+
+.hover-indicator {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 100%;
+  border-left: 1px, white;
+  background-color: rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  transition: opacity 0.3s;
+  z-index: 0;
+}
+
+.result:hover .hover-indicator {
+  opacity: 0.5;
+}
+</style>
