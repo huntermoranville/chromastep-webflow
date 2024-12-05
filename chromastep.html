@@ -23,8 +23,9 @@ document.addEventListener("DOMContentLoaded", () => {
   // Color Input variables
   const colorInput = document.getElementById("myColor");
   var hexInput = document.getElementById("hexInput");
-  var hexInputValue = document.getElementById("hexInput").value;
+  //DELETE?   //var hexInputValue = document.getElementById("hexInput").value;
   var colorNameInput = document.getElementById("colorName"); //
+  var baseColor = document.getElementById("baseColor");
   // Results variables
   const resultsContainer = document.getElementById("resultsContainer"); //
   const exportButton = document.getElementById("exportButton"); //
@@ -38,18 +39,22 @@ document.addEventListener("DOMContentLoaded", () => {
   let isLightenMode = true; // Default to lightening colors
   let suffixLOrD = "";
 
-  hexInputValue.addEventListener("input", () => {
-    console.log(hexInputValue);
+  hexInput.addEventListener("input", () => {
+    console.log(hexInput.value);
+    hexInput.value =  ensureHash(hexInput.value);
+    colorInput.value =  hexInput.value;
+    console.log(colorInput.value);
+    updateColorRange();
   });
 
   updateColorRange();
-  hexInput.textContent = colorInput.value;
+  hexInput.placeholder = colorInput.value;
   colorNameInput.addEventListener("input", updateColorRange());
   console.log(colorInput.value);
 
   // Listen to the color input and automatically update on input change
   colorInput.addEventListener("input", () => {
-    hexInput.textContent = colorInput.value;
+    hexInput.placeholder = colorInput.value;
     updateColorRange();
     console.log(colorInput.value);
   });
@@ -59,6 +64,13 @@ document.addEventListener("DOMContentLoaded", () => {
     updateColorRange();
   });
 
+  function ensureHash(value) {
+    if (!value.startsWith('#')) {
+        return `#${value}`;
+    }
+    return value;
+  }
+  
   function hexToRgb(hex) {
     const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
     return result
@@ -150,6 +162,8 @@ document.addEventListener("DOMContentLoaded", () => {
     if (color) {
       colorRange = generateColorRange(color, increment, isLightenMode);
       resultsContainer.innerHTML = "";
+        
+      //Create new divs based on color range function values, similar code to above //
       colorRange.forEach(({ color, name }) => {
         const resultDiv = document.createElement("div");
         resultDiv.className = "result";
