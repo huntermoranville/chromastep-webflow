@@ -4,10 +4,10 @@
 <!-- Set Export IMG button functionality -->
 <script>
 	const exportIMG = document.getElementById("exportImage");
-  const resultsContainer = document.getElementById("resultsContainer");
+  const exportResults = document.getElementById("exportResults");
 	exportIMG.addEventListener("click", () => {
     console.log("export button clicked");
-    html2canvas(resultsContainer).then(canvas => {
+    html2canvas(exportResults).then(canvas => {
       const a = document.createElement("a");
       a.href = canvas.toDataURL("image/jpeg");
       a.download = "chromastep-color-palette.jpeg";
@@ -26,6 +26,8 @@ document.addEventListener("DOMContentLoaded", () => {
   //DELETE?   //var hexInputValue = document.getElementById("hexInput").value;
   var colorNameInput = document.getElementById("colorName"); //
   var baseColor = document.getElementById("baseColor");
+  var baseName = document.getElementById("baseName");
+  var baseHex = document.getElementById("baseHex");
   // Results variables
   const resultsContainer = document.getElementById("resultsContainer"); //
   const exportButton = document.getElementById("exportButton"); //
@@ -44,25 +46,47 @@ document.addEventListener("DOMContentLoaded", () => {
     hexInput.value =  ensureHash(hexInput.value);
     colorInput.value =  hexInput.value;
     console.log(colorInput.value);
+    updateBaseColor();
     updateColorRange();
   });
 
+	updateBaseColor();
   updateColorRange();
   hexInput.placeholder = colorInput.value;
   colorNameInput.addEventListener("input", updateColorRange());
+  baseName.textContent = "Base";
   console.log(colorInput.value);
 
   // Listen to the color input and automatically update on input change
   colorInput.addEventListener("input", () => {
     hexInput.placeholder = colorInput.value;
+    updateBaseColor();
     updateColorRange();
     console.log(colorInput.value);
   });
 
   // Listen to the color name input and automatically update on input change
   colorNameInput.addEventListener("input", () => {
+    updateBaseColor();
     updateColorRange();
   });
+
+	function updateBaseColor() {
+  	baseColor.style.backgroundColor = colorInput.value;
+    baseHex.textContent = colorInput.value;
+    // Check if a name has been assigned //
+    colorNameInput.addEventListener("input", () => {
+      if (colorNameInput.value.trim() !== "") {
+        baseName.textContent = colorNameInput.value;
+      } else {
+      baseName.textContent = "Base";
+      }
+    });
+    //baseName.textContent = colorNameInput.value;
+    setTextColorBasedOnBackground(colorInput.value, baseHex);
+    setTextColorBasedOnBackground(colorInput.value, baseName);
+    
+  }
 
   function ensureHash(value) {
     if (!value.startsWith('#')) {
